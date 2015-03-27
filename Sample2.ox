@@ -10,7 +10,7 @@ main(){
 
 /*Model specification*/  
 	fob.SetMethod(POOLED);
-////	fob.SetMethod(LSDV);
+//	fob.SetMethod(LSDV);
 	fob.SetConstant();
 /*Identification of panel structure*/
 	fob.Ident(fob.GetVar("id"), fob.GetVar("time"));
