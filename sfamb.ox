@@ -1114,14 +1114,14 @@ case 3:
     fnow = fbest = -10000;
 
     for (i = 0.05 ; i < 0.99 ; i += 0.05)
-    {   fr = s/(1 - i * 0.4292037); //2-pi/2
+    {   fr = s/(1 - i * 0.6366198); //2/pi
 
 			par_buffer =				 
 			
 //			(beta[0]+0.7978846*sqrt(fr*i))|			 
 			beta[0:m_cX-1]
-			|log(sqrt((1-i)*fr))
-			|log(sqrt(fr*i));
+			|log((1-i)*fr)
+			|log(fr*i);
 
 		if (!fSfa(par_buffer,&fnow,0,0))
         {   print("function evaluation failed at gamma ",i," !\n");
@@ -1140,7 +1140,7 @@ case 1:
     fnow = fbest = -10000;
 
     for (i = 0.05 ; i < 0.99 ; i += 0.01)
-    {   fr = s/(1 - i * 0.4292037); //2-pi/2
+    {   fr = s/(1 - i * 0.6366198); //2/pi
 //        if (m_cX<2)									  //only for a constant (MC simulations)
 //            par_buffer = (beta[0]+0.7978846*sqrt(fr*i))
 //            |log(sqrt((1-i)*fr))|log(sqrt(fr*i))
@@ -1150,8 +1150,8 @@ case 1:
             par_buffer =				 //Here: adjustment of vP
 //			(beta[0]+0.7978846*sqrt(fr*i))|			 
 			beta[0:m_cX-1]
-			|log(sqrt((1-i)*fr))
-			|log(sqrt(fr*i))
+			|log((1-i)*fr)
+			|log(fr*i)
             // |zeros(m_cZ+m_cU-1,1);//original sfamb
             |zeros(m_cZ,1);
 
@@ -1159,8 +1159,8 @@ case 1:
             par_buffer =
 //			(beta[0]+0.7978846*sqrt(fr*i))|			 
 			beta[0:m_cX-1]
-			|log(sqrt((1-i)*fr))
-			|log(sqrt(fr*i))
+			|log((1-i)*fr)
+			|log(fr*i)
             |zeros(m_cZ+1,1);//adjustment for 'mu'
 			
 		if (!fSfa(par_buffer,&fnow,0,0))
@@ -1182,7 +1182,7 @@ default:
     fnow = fbest = -1000;
 
     for (i = 0.05 ; i < 0.99 ; i += 0.01)
-    {   fr = s/(1 - i * 0.4292037); //2-pi/2
+    {   fr = s/(1 - i * 0.6366198); //2/pi
         if (m_cX<2)
             par_buffer = (beta[0]+0.7978846*sqrt(fr*i))
             |log(sqrt((1-i)*fr))|log(sqrt(fr*i))
