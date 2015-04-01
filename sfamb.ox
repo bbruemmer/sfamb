@@ -487,6 +487,12 @@ decl hit = exp(m_mZ*vP[m_cX+2:m_cX+m_cZ+1]);
 decl mu = 0;
 if (m_iDist)			  
 	 mu = vP[m_cX+m_cZ+2];
+
+	oxwarning(FALSE);//warnings off (maximization)
+
+	if (m_fPrintDetails) 
+		oxwarning(-1);
+
 /*------ w-transf. of hit-equation ------------------------------------------*/
 	decl vFm, vFw; 
 	decl mMh = zeros(maxc(m_vID), 1);
@@ -1784,6 +1790,12 @@ Sfa::SetUse_maxSQPF(const bool)
   if (bool)
     m_bUse_maxSQP=FALSE;
   m_bUse_maxSQPF=bool;
+  return 1;
+}
+
+Sfa::SetRobustStdErr(const bool)
+{
+  m_bUseRobustStdErr = bool;
   return 1;
 }
 
