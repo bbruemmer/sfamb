@@ -89,6 +89,7 @@ class Sfa : Modelbase
 									and deal with "Constant"*/
 	SetPrintSfa(const iPri);/*used with 'SetPrint' to print panel information*/
 	DropGroupIf(const mifr);
+	SetRobustStdErr(const bool);
 
 		//OxPack-related
     SendVarStatus();
