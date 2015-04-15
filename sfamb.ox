@@ -1119,7 +1119,7 @@ case 3:
     decl i, fnow, fbest, fr, par_buffer;
     fnow = fbest = -10000;
 
-    for (i = 0.05 ; i < 0.99 ; i += 0.05)
+    for (i = 0.05 ; i < 0.99 ; i += 0.01)
     {   fr = s/(1 - i * 0.6366198); //2/pi
 
 			par_buffer =				 
@@ -1185,7 +1185,7 @@ break;
 
 default:
 //    decl i, fnow, fbest, fr, par_buffer;
-    fnow = fbest = -1000;
+    fnow = fbest = -10000;
 
     for (i = 0.05 ; i < 0.99 ; i += 0.01)
     {   fr = s/(1 - i * 0.6366198); //2/pi
@@ -1973,7 +1973,12 @@ default:
 //  decl sigma2, vCovar = GetCovarRobust()[vIdx][vIdx];
 //  decl vTvalue=zeros(GetcT(),1);
   vEstimates = GetPar()[vIdx];
-  vCovar = GetCovarRobust()[vIdx][vIdx];
+
+	if(m_bUseRobustStdErr==FALSE)
+		{vCovar = GetCovar()[vIdx][vIdx];}
+	else
+		{vCovar = GetCovarRobust()[vIdx][vIdx];}
+
   vTvalue=zeros(GetcT(),1);
 	for (i=0;i<GetcT();i++){ 
 	  sigma2 = (vData[i][] * vCovar * (vData[i][])');
