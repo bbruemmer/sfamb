@@ -1343,6 +1343,8 @@ default:
   else 
     temp=m_vStart;
 
+  m_cParOLS = sizeof(temp)+1;//for test stat. one-sided err
+	
   sd=
     ((m_var[][0]-m_var[][1:m_cX]*temp[:m_cX-1])'(m_var[][0]-m_var[][1:m_cX]*temp[:m_cX-1]))/m_cT;//'
   m_dLoglikOLS = -m_cT/2*(log(sd)+2.837877066409); /* log-likelihood OLS*/
@@ -1708,8 +1710,18 @@ default:
     decl s_u2= double(meanc(exp(2*m_mZ*m_par[m_cX+1:m_cX+m_cZ])));
     println("\\gamma:       ", "%15.4g", s_u2/(v_v+s_u2),
     "  VAR(u)/VAR(total)", "%12.4g", ((M_PI-2)/M_PI*s_u2)/(v_v+(M_PI-2)/M_PI*s_u2));
-    println("Test of one-sided err","%8.5g",
-        double(2*(m_dLogLik-m_dLoglikOLS)),"  mixed Chi^2 !!");
+
+	decl dVal = double(2*(m_dLogLik-m_dLoglikOLS));
+	println("Test of one-sided err","%8.5g", dVal,"  mixed Chi^2 !!");
+
+	decl dPval, iDF = GetParCount() - m_cParOLS;
+
+	if (m_cZ>1 || m_cU)
+		{dPval = double(0.5*(tailchi(dVal, iDF) + tailchi(dVal, iDF-1)));}
+	else
+		{dPval = double(0.5*tailchi(dVal,1));}
+
+	println("with p-value  ", "%15.5g", dPval);	
 break;
 }}
 
