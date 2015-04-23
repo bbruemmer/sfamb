@@ -63,7 +63,8 @@ class Sfa : Modelbase
 	decl m_mTldata;//data for TL form
 	decl m_mVars;//only for eq(31)/inactive
 	decl m_iDist;//for specification (WT)
-
+	decl m_cParOLS;//for test stat. one-sided err
+	
 /*---Related to integration (CFE)---*/	
 	fKotzetal(const x);
 	decl m_lam;
