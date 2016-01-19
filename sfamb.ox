@@ -412,8 +412,6 @@ case 4:
     -.9189385-0.5.*log(sigsq)- (epsi.^2) ./(2*sigsq) + log(probn(-lam.*epsi./sqrt(sigsq)))
     -log(probn(0))));
 
-	m_mScore = zeros(rows(m_var),(m_cX+1));
-
 	return (!(isnan(prob[0])||isdotinf(prob[0]) ));      // 1 indicates success
 break;
 
@@ -469,8 +467,6 @@ case 3:
 	
 	
 	m_lnLW = iC/sizer(m_ID)  + lnfx + lnFX;
-
-	m_mScore = zeros(rows(m_var),(m_cX+1));
 
 	return (!(isnan(prob[0])||isdotinf(prob[0]) ));      // 1 indicates success
 break;
@@ -563,7 +559,6 @@ if (m_iDist)
 
 	prob[0] = double(sumc(lnLW));
 
-	m_mScore = zeros(rows(m_var),(m_cX+m_cZ+1));
 	m_lnLW = lnLW;//[#firms][1]vector with individual LLF value
 
 	return (!(isnan(prob[0])||isdotinf(prob[0]) ));      // 1 indicates success
@@ -1293,8 +1288,8 @@ case 1:
   else 
     temp=m_vStart;
 
-  if (m_fPrintDetails) 
-    print("starting values(OLS on x~): ", temp);
+//  if (m_fPrintDetails) 
+//    print("starting values(OLS on x~): ", temp);
 
   sd=
     ((m_var[][0]-m_var[][1:m_cX]*temp[:m_cX-1])'(m_var[][0]-m_var[][1:m_cX]*temp[:m_cX-1]))/m_cT;//'
@@ -1307,8 +1302,8 @@ case 1:
       }
   else m_par = temp;
   
-//  if (m_fPrintDetails) 
-//    print("starting values(after GridSearch): ", m_par);
+  if (m_fPrintDetails) 
+    print("starting values: ", m_par);
 
   cp = sizer(m_par);
   SetParCount(cp);
@@ -1693,10 +1688,7 @@ case 1:
     Modelbase::Output();
 
 	sv = sqrt(exp(m_par[m_cX]));
-	decl su2 = exp(m_par[m_cX+1]);
-	
-	if (m_iDist==FALSE)
-		su2 = meanc(exp(m_par[m_cX+1] + m_mZ*m_par[m_cX+2:m_cX+m_cZ+1]));
+	decl su2 = exp(m_par[m_cX+1]);	
 	su = sqrt(su2);
 	lambda = double(su/sv);
 	println("lambda  ","%21.4g", lambda);
