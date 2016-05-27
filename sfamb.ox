@@ -412,6 +412,8 @@ case 4:
     -.9189385-0.5.*log(sigsq)- (epsi.^2) ./(2*sigsq) + log(probn(-lam.*epsi./sqrt(sigsq)))
     -log(probn(0))));
 
+	m_mScore = zeros(rows(m_var),(m_cX+1));//keep, required for program flow (to use 'default' in 'Covar')
+
 	return (!(isnan(prob[0])||isdotinf(prob[0]) ));      // 1 indicates success
 break;
 
