@@ -270,9 +270,9 @@ Sfa::ReceiveModel(){
 //     }
 // }
 
-Sfa::GetPackageName(){return "Sfa";}
+Sfa::GetPackageName(){return "SFAMB";}
 
-Sfa::GetPackageVersion(){return "1.0";}
+Sfa::GetPackageVersion(){return "1.1";}
 
 Sfa::SetConstant()
 {switch (m_iMethod){
