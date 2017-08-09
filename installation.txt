@@ -1,0 +1,54 @@
+SFAMB -- Stochastic Frontier Analysis Using ModelBase
+
+Please cite this package by referencing the JSS article: 
+Stochastic Frontier Analysis Using SFAMB for Ox. 
+
+This article serves as an user manual for the package.
+(https://www.jstatsoft.org/issue/archive)
+
+
+1. Installation
+
+i) Install Ox on your computer (http://doornik.com/download.html). 
+For execution of a sample file: 
+go to the directory ./Program files/OxMetrics7/Ox/samples and
+run a file such as myfirst.ox, using double click (or the command prompt).
+
+ii) There are two folders, examples (data and script files)
+and sfamb (the package's source code). Put sfamb into the directory Ox/packages.
+The respective path is now Ox/packages/sfamb.
+
+iii) Check the readme.txt file.
+
+iv) If Ox has been installed properly, this will allow using the SFAMB 
+package from any directory. To use the package in your code, add the command
+#import <packages/sfamb/sfamb>
+at the top of all files which require it, e.g. the file hbest1.ox
+(the command #include <packages/sfamb/sfamb.ox> would also work).
+
+v) Optional: SFAMB includes a function for graphics that can be used with the
+Ox package GnuDraw (by Charles Bos, 
+http://personal.vu.nl/c.s.bos/software/gnudraw.html).
+The respective directory is again Ox/packages. Use the command 
+#include <packages/gnudraw/gnudraw.h>
+in your file, see e.g. hbest1.ox. 
+Furthermore, this package requires the installation of gnuplot (http://www.gnuplot.info/).
+
+
+2. Additional information
+
+For general usage of the Ox language, see 
+Doornik and Ooms (2006): Introduction to Ox. (http://doornik.com/ox/OxIntro.pdf)
+
+
+3. Main files
+
+sfamb.h -- the header file for the SFAMB class;
+sfamb.ox -- the source code with the SFAMB class;
+sfamb.oxo -- the compiled source code;
+
+Included sample data sets:
+Sample2.xls
+USDAafrica.xls		(subset of data prepared by Keith O. Fuglie)
+
+The remaining files are sample programs.
