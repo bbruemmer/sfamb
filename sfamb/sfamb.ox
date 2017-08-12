@@ -20,6 +20,7 @@ Sfa::Sfa()
     m_bUseRobustStdErr = TRUE;
     m_vUpper = m_vLower = <>;
     m_fcon_ge0 = m_fcon_eq0 = 0;
+	m_bCost = FALSE;
     if (m_fPrintDetails)
         print("Sfa class, object created on ",date(), ".\n\n");
 }
@@ -927,6 +928,12 @@ case 4:
 	m_mY = my;
 	m_cY = 1;
 
+	if (m_bCost){
+	    m_var = - m_var;
+		m_mY = - m_mY;
+		if (m_iTl) m_mTldata = - m_mTldata;
+	}
+
 	decl mZ = GetGroup(Z_VAR);
     decl cZ = columns(mZ);
 
@@ -1008,6 +1015,13 @@ case 1:
 	m_mY = mWtvars[][0];//used internally
 	m_cY = 1;
 
+	if (m_bCost){
+	    m_var = - m_var;
+		m_mY = - m_mY;
+		if (m_iTl) m_mTldata = - m_mTldata;
+	}
+	
+	
 	mZ = GetGroup(Z_VAR);
     cZ = columns(mZ);//for model spec
 
@@ -1098,6 +1112,14 @@ default:
 		m_mTldata = m_var[][0]~m_var[][1:];//Y~X, includes 'Constant'
     }
     m_cT = m_iT2est - m_iT1est + 1;
+
+	if (m_bCost){
+	    m_var = - m_var;
+		m_mY = - m_mY;
+		if (m_iTl) m_mTldata = - m_mTldata;
+	}
+
+	
     if (m_cT <= 2)
     {   eprint("Only ", m_cT, " observations. This is not enough.\n");
         return FALSE;
@@ -2046,4 +2068,9 @@ Sfa::GetMeans()
 Sfa::GetWithins()
 {
   return m_mWithins;
+}
+
+Sfa::SetCost(const bCost)
+{
+  m_bCost = bCost;
 }

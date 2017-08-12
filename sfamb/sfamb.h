@@ -50,7 +50,9 @@ class Sfa : Modelbase
     decl m_vLower;                             /* Lower bounds on parameters*/
     decl m_fcon_ge0; /*0: no inequality cons., otherwise func to eval const.*/
     decl m_fcon_eq0;   /*0: no equality cons., otherwise func to eval const.*/
-
+	decl m_bCost;  /*True: Use cost fct type of model,
+					i.e., u + v instead of u - v (default) */
+					
 /*---Additional data members---*/
 	decl m_vID;//[#obs][1], firms
 	decl m_ID;//[#firms][1], firms
@@ -135,6 +137,7 @@ class Sfa : Modelbase
     SetUpperBounds(const vBounds);
     SetLowerBounds(const vBounds);
     SetUse_maxSQPF(const bool);
+	SetCost(const bCost);
 };
 /*------------------------ END Sfa : Database -------------------------*/
 #endif /* SFA_INCLUDED */
