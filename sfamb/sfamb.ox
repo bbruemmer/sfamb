@@ -1206,14 +1206,17 @@ default:
 //    decl i, fnow, fbest, fr, par_buffer;
     fnow = fbest = -10000;
 
+//BB: Adjusted intercept correction with boolean for "v+u" type of models.
+//Not in cases above because no intercept is corrected. 
+
     for (i = 0.05 ; i < 0.99 ; i += 0.01)
     {   fr = s/(1 - i * 0.6366198); //2/pi
         if (m_cX<2)
-            par_buffer = (beta[0]+0.7978846*sqrt(fr*i))
+            par_buffer = (beta[0]+(m_bCost?-1:1)*0.7978846*sqrt(fr*i))
             |log(sqrt((1-i)*fr))|log(sqrt(fr*i))
             |zeros(m_cZ+m_cU-1,1);
         else
-            par_buffer = (beta[0]+0.7978846*sqrt(fr*i))
+            par_buffer = (beta[0]+(m_bCost?-1:1)*0.7978846*sqrt(fr*i))
             |beta[1:m_cX-1]|log(sqrt((1-i)*fr))|log(sqrt(fr*i))
             |zeros(m_cZ+m_cU-1,1);
         if (!fSfa(par_buffer,&fnow,0,0))
