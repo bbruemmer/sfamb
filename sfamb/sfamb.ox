@@ -1161,9 +1161,11 @@ case 3:
 	return TRUE;
 break;
 
-case 1:
+case 1:	 //BB: this could be improved. larger share of s_u should have an effect on the par of m_mZ 
     fnow = fbest = -10000;
-
+	decl vRes=m_var[][0]-m_var[][1:m_cX]*beta;	// get OLS residuals
+	decl vZStart;
+	ols2c(log((vRes).^2),m_mZ,&vZStart); // Get decent starting values for scaling variables
     for (i = 0.05 ; i < 0.99 ; i += 0.01)
     {   fr = s/(1 - i * 0.6366198); //2/pi
 //        if (m_cX<2)									  //only for a constant (MC simulations)
@@ -1178,9 +1180,9 @@ case 1:
 			|log((1-i)*fr)
 			|log(fr*i)
             // |zeros(m_cZ+m_cU-1,1);//original sfamb
-            |zeros(m_cZ,1);
+            |zeros(m_cZ,1) + i*vZStart;   // scale start values according to current gamma
 
-	if (m_iDist)		  
+	if (m_iDist)		 // no starting values for mu type models, not that straightforward 
             par_buffer =
 //			(beta[0]+0.7978846*sqrt(fr*i))|			 
 			beta[0:m_cX-1]
@@ -1199,6 +1201,7 @@ case 1:
             m_par = par_buffer;
         }
     }
+	
 	return TRUE;
 break;
 
