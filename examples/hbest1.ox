@@ -1,7 +1,7 @@
 #include <oxstd.h>
 #include <packages/gnudraw/gnudraw.h>
-#import <packages/sfamb/sfamb>	
-
+//#import <packages/sfamb/sfamb>	
+#include "../sfamb/sfamb.ox"
 main(){								   
 /*new object of class 'Sfa', Load data*/
     decl fob = new Sfa(); fob.Load("USDAafrica.xls");
@@ -19,9 +19,9 @@ main(){
 //	fob.Info(); exit(1);	
 	
 /*Set up model*/
-    fob.Select(Y_VAR, {"lny", 0, 0});			// Select dependent variable
+    fob.Select("Y", {"lny", 0, 0});			// Select dependent variable
 
-    fob.Select(X_VAR, {						// Select regressors
+    fob.Select("X", {						// Select regressors
 						"Constant", 0, 0, 
 						"lnlab", 0, 0, 
 						"lnland", 0, 0, 
@@ -31,11 +31,11 @@ main(){
 						"trend",0 ,0						
 						});
 
-	fob.Select(U_VAR, {						//Shifting mu	
+	fob.Select("U", {						//Shifting mu	
 						"Constant", 0, 0         
 						});
 	
-	fob.Select(Z_VAR, {					 	//Scaling sigma_u		
+	fob.Select("Z", {					 	//Scaling sigma_u		
 						"Constant", 0, 0,
 						"lnlab", 0, 0, 
 						"lnland", 0, 0, 

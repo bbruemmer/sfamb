@@ -1,7 +1,7 @@
 #include <oxstd.h>
 #include <packages/gnudraw/gnudraw.h>
-//#include  <packages/sfamb/sfamb.ox>	
-#import <packages/sfamb/sfamb>	
+//#import <packages/sfamb/sfamb>	
+#include  "../sfamb/sfamb.ox"	
 
 main(){								   
 /*new object of class 'Sfa', Load data*/
@@ -19,9 +19,9 @@ main(){
 //	fob.Info();	exit(1);
 
 /*Set up model*/
-    fob.Select(Y_VAR, {"lny", 0, 0});			// Select dependent variable
+    fob.Select("Y", {"lny", 0, 0});			// Select dependent variable
 
-    fob.Select(X_VAR, {						// Select regressors
+    fob.Select("X", {						// Select regressors
 						"Constant", 0, 0, 
 						"lnx1", 0, 0, 
 						"lnx2", 0, 0,
@@ -29,7 +29,7 @@ main(){
 						"time", 0, 0
 						});	     
 	
-	fob.Select(Z_VAR, {							
+	fob.Select("Z", {							
 						"Constant", 0, 0,
 						"z1", 0, 0 
 						});

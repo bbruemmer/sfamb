@@ -7,9 +7,10 @@
 #include <oxdraw.h>
 #include <quadpack.h>
 
-enum
-{   U_VAR = X_VAR +1, Z_VAR
-};
+//enum
+//{ U_VAR = 3, Z_VAR = 4
+//};
+
 
 enum
 {    M_MAXLIK
@@ -138,6 +139,14 @@ class Sfa : Modelbase
     SetLowerBounds(const vBounds);
     SetUse_maxSQPF(const bool);
 	SetCost(const bCost);
+public:
+	/** Types of variables in the model. */
+	enum
+	{ Y_VAR, X_VAR, U_VAR, Z_VAR
+	};
+	GetGroupLabels();
+	FindGroup(const theGroup); // only required for Ox versions < 8
+
 };
 /*------------------------ END Sfa : Database -------------------------*/
 #endif /* SFA_INCLUDED */

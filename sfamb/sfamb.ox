@@ -159,22 +159,22 @@ Sfa::PrepData(const mSel, iNorm)
 	return mVar;
 }
 
-Sfa::SendVarStatus(){
-    return {
-        {"&Y variable", 'Y', STATUS_GROUP + STATUS_ENDOGENOUS, Y_VAR},
-        {"&X variable", 'X', STATUS_GROUP, X_VAR},
-        {"&Technical effect", 'T', STATUS_GROUP2, U_VAR},
-        {"&Heteroscedastic", 'H', STATUS_GROUP2, Z_VAR}
-    };
-}
-
-Sfa::SendSpecials(){
-    return {"Constant", "Trend"};
-}
-
-Sfa::SendMethods(){
-    return {{"Maximum Likelihood", M_MAXLIK, FALSE, 0}};
-}
+//Sfa::SendVarStatus(){
+//    return {
+//        {"&Y variable", 'Y', STATUS_GROUP + STATUS_ENDOGENOUS, Y_VAR},
+//        {"&X variable", 'X', STATUS_GROUP, X_VAR},
+//        {"&Technical effect", 'T', STATUS_GROUP2, U_VAR},
+//        {"&Heteroscedastic", 'H', STATUS_GROUP2, Z_VAR}
+//    };
+//}
+//
+//Sfa::SendSpecials(){
+//    return {"Constant", "Trend"};
+//}
+//
+//Sfa::SendMethods(){
+//    return {{"Maximum Likelihood", M_MAXLIK, FALSE, 0}};
+//}
 
 // Sfa::SendDialog(const sDialog){
 //     if (sDialog == "OP_SETTINGS")
@@ -209,28 +209,28 @@ Sfa::SendMenu(const sMenu){
     }
 }
 
-Sfa::ReceiveModel(){
-    decl as, i;
-
-    DeSelect();
-
-    // get selection of database variables
-    Select(Y_VAR, "OxPackGetData"("SelGroup", Y_VAR));
-    Select(X_VAR, "OxPackGetData"("SelGroup", X_VAR));
-    Select(U_VAR, "OxPackGetData"("SelGroup", U_VAR));
-    Select(Z_VAR, "OxPackGetData"("SelGroup", Z_VAR));
-
-    decl freq, year1, period1, year2, period2;
-    [year1, period1, year2, period2] = "OxPackGetData"("SelSample");
-    ForceSelSample(year1, period1, year2, period2);
-
-    // get functions
-    // get method
-    decl imethod, itforc, brecursive;
-    [imethod, itforc, brecursive] = "OxPackGetData"("Method");
-    SetMethod(imethod);
-}
-
+//Sfa::ReceiveModel(){
+//    decl as, i;
+//
+//    DeSelect();
+//
+//    // get selection of database variables
+//    Select(Y_VAR, "OxPackGetData"("SelGroup", Y_VAR));
+//    Select(X_VAR, "OxPackGetData"("SelGroup", X_VAR));
+//    Select(U_VAR, "OxPackGetData"("SelGroup", U_VAR));
+//    Select(Z_VAR, "OxPackGetData"("SelGroup", Z_VAR));
+//
+//    decl freq, year1, period1, year2, period2;
+//    [year1, period1, year2, period2] = "OxPackGetData"("SelSample");
+//    ForceSelSample(year1, period1, year2, period2);
+//
+//    // get functions
+//    // get method
+//    decl imethod, itforc, brecursive;
+//    [imethod, itforc, brecursive] = "OxPackGetData"("Method");
+//    SetMethod(imethod);
+//}
+//
 // Sfa::ReceiveDialog(const sDialog, const asOptions, const aValues){
 //     if (sDialog == "OP_SETTINGS")
 //     {
@@ -297,7 +297,7 @@ case 2:
 case 1:
 	decl aSelnew;
 
-	if (iGroup != Y_VAR)
+	if (FindGroup(iGroup) != Y_VAR)
 	{
 		decl iIndex = strfind(aSel, "Constant");//relevant index of "Constant"
 
@@ -315,13 +315,13 @@ case 1:
 		aSelnew = aSel;
 	}
 
-	decl asVars = Database::Select(iGroup, aSelnew);
+	decl asVars = Database::Select(FindGroup(iGroup), aSelnew);
 
 	return asVars;
 break;
 
 default:
-	asVars = Database::Select(iGroup, aSel);
+	asVars = Database::Select(FindGroup(iGroup), aSel);
 
 	return asVars;
 break;
@@ -2080,3 +2080,18 @@ Sfa::SetCost(const bCost)
 {
   m_bCost = bCost;
 }
+
+Sfa::GetGroupLabels()
+{
+	return {"Y", "X", "U", "Z"};
+}
+
+Sfa::FindGroup(const theGroup)	// replicated code from modelbase for Ox versions < 8
+{
+	if (isstring(theGroup))
+	{
+		return max(0, find(GetGroupLabels(), theGroup, "i"));
+	}
+	return theGroup;
+}
+
