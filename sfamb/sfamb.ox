@@ -1454,12 +1454,10 @@ default:
         decl mXprod, dfunc;
         //fSfa(m_par, &dfunc, &mXprod, 0);
         //println(rows(mXprod)," ",columns(mXprod));
-        mXprod = m_mScore * m_mScore' /m_cT; //'
         //print(rows(mXprod)," ",columns(mXprod));exit(0);
-        if (Num2Derivative(fSfa, m_par, &m_mCovP))
+        if (Num2Derivative_parallel(fSfa, m_par, &m_mCovP))
         {
             m_mCovP = invertgen(-m_mCovP,30) ; //println(m_fPrintDetails);
-			println("");
                 if (m_fPrintDetails)
                     println("standard errors from Hessian.");
         }
@@ -1474,7 +1472,10 @@ default:
 	if (m_iMethod==0)//orig.sfamb:
 		{
 		if (m_bUseRobustStdErr)
+			{ 
+	        mXprod = m_mScore * m_mScore' /m_cT; //'
             m_mCovarRobust = m_cT * m_mCovar * mXprod * m_mCovar ;
+			}			
 		}			
     }
 break;
