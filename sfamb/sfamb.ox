@@ -1455,7 +1455,7 @@ default:
         //fSfa(m_par, &dfunc, &mXprod, 0);
         //println(rows(mXprod)," ",columns(mXprod));
         //print(rows(mXprod)," ",columns(mXprod));exit(0);
-        if (Num2Derivative_parallel(fSfa, m_par, &m_mCovP))
+        if ((m_iMethod==4)?Num2Derivative(fSfa, m_par, &m_mCovP):Num2Derivative_parallel(fSfa, m_par, &m_mCovP))
         {
             m_mCovP = invertgen(-m_mCovP,30) ; //println(m_fPrintDetails);
                 if (m_fPrintDetails)
